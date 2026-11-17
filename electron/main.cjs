@@ -11,13 +11,19 @@ const path = require("path");
 const { execFile } = require("child_process");
 const fs = require("fs");
 
+// Ajuste do cache da GPU
+app.commandLine.appendSwitch("disable-gpu-shader-disk-cache");
+
 let win;
 
 const WINDOW_WIDTH = 300;
 const WINDOW_HEIGHT = 350;
 
 // Arquivo onde as tarefas serão armazenadas
-const tasksFile = path.join(app.getPath("userData"), "tasks.json");
+const tasksFile = path.join(
+  app.getPath("userData"),
+  "tasks.json"
+);
 
 // Sites permitidos
 const sites = {
@@ -39,7 +45,9 @@ function readTasks() {
       return [];
     }
 
-    return JSON.parse(fs.readFileSync(tasksFile, "utf-8"));
+    return JSON.parse(
+      fs.readFileSync(tasksFile, "utf-8")
+    );
   } catch (error) {
     console.error("Erro ao ler tarefas:", error);
     return [];
@@ -48,10 +56,15 @@ function readTasks() {
 
 // Salvar tarefas
 function saveTasks(tasks) {
-  fs.writeFileSync(
-    tasksFile,
-    JSON.stringify(tasks, null, 2)
-  );
+  try {
+    fs.writeFileSync(
+      tasksFile,
+      JSON.stringify(tasks, null, 2)
+    );
+  } catch (error) {
+    console.error("Erro ao salvar tarefas:", error);
+    throw error;
+  }
 }
 
 // Criar janela do Zinho
@@ -59,8 +72,16 @@ function createWindow() {
   const display = screen.getPrimaryDisplay();
   const { bounds } = display;
 
-  const positionX = bounds.x + bounds.width - WINDOW_WIDTH + 70;
-  const positionY = bounds.y + bounds.height - WINDOW_HEIGHT - 15;
+  // Posicionamento dentro da tela
+  const positionX = Math.max(
+    bounds.x,
+    bounds.x + bounds.width - WINDOW_WIDTH - 20
+  );
+
+  const positionY = Math.max(
+    bounds.y,
+    bounds.y + bounds.height - WINDOW_HEIGHT - 20
+  );
 
   win = new BrowserWindow({
     width: WINDOW_WIDTH,
@@ -77,6 +98,7 @@ function createWindow() {
     movable: false,
     hasShadow: false,
     skipTaskbar: true,
+    show: false,
 
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
@@ -85,7 +107,45 @@ function createWindow() {
     }
   });
 
-  win.loadURL("http://127.0.0.1:5173");
+  // Registrar erros de carregamento
+  win.webContents.on(
+    "did-fail-load",
+    (event, errorCode, errorDescription) => {
+      console.error(
+        "Erro ao carregar o Zinho:",
+        errorCode,
+        errorDescription
+      );
+    }
+  );
+
+  // Exibir janela depois de carregar
+  win.once("ready-to-show", () => {
+    win.show();
+    win.setAlwaysOnTop(true, "screen-saver");
+  });
+
+  win.webContents.on("did-finish-load", () => {
+    console.log("Zinho carregado com sucesso!");
+  });
+
+  // Desenvolvimento e aplicativo instalado
+  if (app.isPackaged) {
+    const indexPath = path.join(
+      __dirname,
+      "../dist/index.html"
+    );
+
+    console.log("Carregando arquivo:", indexPath);
+
+    win.loadFile(indexPath).catch((error) => {
+      console.error("Erro ao abrir o arquivo:", error);
+    });
+  } else {
+    win.loadURL("http://127.0.0.1:5173").catch((error) => {
+      console.error("Erro ao abrir o Vite:", error);
+    });
+  }
 
   win.setAlwaysOnTop(true, "screen-saver");
 }
