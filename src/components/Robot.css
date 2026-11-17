@@ -1,0 +1,1117 @@
+
+/* ===== ROBOZINHO FOFO ===== */
+
+.robot-container {
+  position: relative;
+  width: 300px;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+  user-select: none;
+
+  transform: translateY(90px) scale(0.45);
+  transform-origin: center center;
+}
+
+/* ===== PERSONAGEM ===== */
+
+.robot {
+  position: relative;
+  width: 190px;
+  height: 260px;
+  cursor: pointer;
+  animation: robotFloat 2.4s ease-in-out infinite;
+  z-index: 2;
+}
+
+/* ===== CABEÇA ===== */
+
+.robot-head {
+  position: absolute;
+  width: 155px;
+  height: 125px;
+  top: 38px;
+  left: 17px;
+  border-radius: 48px 48px 43px 43px;
+
+  background:
+    radial-gradient(ellipse at 30% 15%, #ffffff 0%, transparent 35%),
+    linear-gradient(145deg, #fff4ff, #e7c5ff 45%, #b77ce8);
+
+  border: 3px solid #f8e7ff;
+
+  box-shadow:
+    inset 5px 6px 12px #ffffff,
+    inset -8px -10px 15px #9860c5,
+    0 5px 12px #7743a955,
+    0 0 20px #d5a4ff;
+
+  z-index: 4;
+}
+
+/* ===== ROSTINHO ===== */
+
+.robot-face {
+  position: absolute;
+  inset: 13px;
+  border-radius: 35px;
+
+  background: linear-gradient(
+    145deg,
+    #35204d,
+    #241432,
+    #39204d
+  );
+
+  border: 2px solid #f2d5ff;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+
+  box-shadow:
+    inset 0 0 18px #a96bce55,
+    0 0 10px #b77ce8;
+}
+
+/* ===== BOCHECHAS ===== */
+
+.robot-face::before,
+.robot-face::after {
+  content: "";
+  position: absolute;
+  top: 66px;
+  width: 19px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ff9acb;
+  filter: blur(1px);
+  opacity: 0.85;
+}
+
+.robot-face::before {
+  left: 8px;
+}
+
+.robot-face::after {
+  right: 8px;
+}
+
+/* ===== OLHINHOS ===== */
+
+.robot-eyes {
+  display: flex;
+  gap: 25px;
+}
+
+.robot-eyes span {
+  position: relative;
+  width: 19px;
+  height: 25px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 35% 25%,
+    #ffffff 0%,
+    #fffaff 15%,
+    #d7c5ff 45%,
+    #a878f5 100%
+  );
+
+  box-shadow:
+    0 0 7px #ffffff,
+    0 0 14px #d7aaff;
+
+  animation: blink 4.5s infinite;
+}
+
+.robot-eyes span::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  top: 4px;
+  left: 4px;
+  border-radius: 50%;
+  background: white;
+}
+
+/* ===== SORRISO ===== */
+
+.robot-mouth {
+  width: 20px;
+  height: 10px;
+  border-bottom: 3px solid #ffaddd;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 5px #ff8bd5);
+}
+
+/* ===== ORELHINHAS ===== */
+
+.robot-ear {
+  position: absolute;
+  width: 19px;
+  height: 38px;
+  top: 42px;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    90deg,
+    #bd8be8,
+    #f5dcff,
+    #c38ce9
+  );
+
+  border: 2px solid #f5dcff;
+  z-index: -1;
+}
+
+.robot-ear.left {
+  left: -17px;
+}
+
+.robot-ear.right {
+  right: -17px;
+}
+
+/* ===== ANTENINHA ===== */
+
+.robot-antenna {
+  position: absolute;
+  top: 10px;
+  left: 90px;
+  width: 5px;
+  height: 32px;
+
+  background: linear-gradient(#f5d9ff, #bd83e8);
+  border-radius: 5px;
+
+  z-index: 3;
+  transform: rotate(12deg);
+}
+
+.robot-antenna span {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  top: -10px;
+  left: -6px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 25%,
+    white,
+    #ffb5e5 40%,
+    #d77cff
+  );
+
+  box-shadow:
+    0 0 8px white,
+    0 0 17px #f29bff,
+    0 0 25px #c46aff;
+
+  animation: antennaGlow 1.8s ease-in-out infinite;
+}
+
+/* ===== PESCOÇO ===== */
+
+.robot-neck {
+  position: absolute;
+  width: 35px;
+  height: 20px;
+  left: 78px;
+  top: 155px;
+
+  background: linear-gradient(
+    90deg,
+    #bd8ce6,
+    #f2d8ff,
+    #b17cdb
+  );
+
+  border-radius: 8px;
+  z-index: 2;
+}
+
+/* ===== CORPINHO ===== */
+
+.robot-body {
+  position: absolute;
+  top: 166px;
+  left: 43px;
+  width: 105px;
+  height: 76px;
+  border-radius: 35px 35px 29px 29px;
+
+  background:
+    radial-gradient(ellipse at 30% 15%, #ffffff, transparent 35%),
+    linear-gradient(145deg, #fff2ff, #d8b0f5 50%, #a56bd3);
+
+  border: 2px solid #f9e8ff;
+
+  box-shadow:
+    inset 5px 5px 12px #ffffff,
+    inset -7px -9px 14px #9260bc,
+    0 5px 12px #874cb855;
+
+  z-index: 3;
+}
+
+/* ===== CORAÇÃO DE ENERGIA ===== */
+
+.robot-core {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  top: 22px;
+  left: 37px;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    #ffffff,
+    #ffcef0 35%,
+    #d58aff 75%,
+    #a55de8
+  );
+
+  box-shadow:
+    0 0 8px white,
+    0 0 17px #f7aaff,
+    0 0 25px #c477ff;
+
+  animation: corePulse 1.8s ease-in-out infinite;
+}
+
+/* ===== BRACINHOS ===== */
+
+.robot-arm {
+  position: absolute;
+  width: 22px;
+  height: 58px;
+  top: 173px;
+  border-radius: 15px;
+
+  background: linear-gradient(
+    90deg,
+    #b27cda,
+    #f7dcff,
+    #c18be8
+  );
+
+  box-shadow: inset 3px 2px 5px #ffffffaa;
+  transform-origin: top center;
+  z-index: 2;
+}
+
+.robot-arm.left {
+  left: 29px;
+  transform: rotate(25deg);
+}
+
+.robot-arm.right {
+  right: 29px;
+  transform: rotate(-35deg);
+  animation: wave 1.8s ease-in-out infinite;
+}
+
+/* ===== MÃOZINHAS ===== */
+
+.robot-hand {
+  position: absolute;
+  bottom: -9px;
+  left: -3px;
+  width: 28px;
+  height: 23px;
+  border-radius: 50%;
+
+  background: linear-gradient(
+    145deg,
+    #fff0ff,
+    #d4a4f2,
+    #a56bd4
+  );
+
+  box-shadow: inset 2px 2px 5px #ffffffaa;
+}
+
+/* ===== PERNINHAS ===== */
+
+.robot-leg {
+  position: absolute;
+  width: 24px;
+  height: 35px;
+  top: 232px;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    90deg,
+    #b17bda,
+    #f1d7ff,
+    #b17bda
+  );
+
+  z-index: 2;
+}
+
+.robot-leg.left {
+  left: 66px;
+  animation: walkLeft 0.5s infinite alternate;
+}
+
+.robot-leg.right {
+  right: 66px;
+  animation: walkRight 0.5s infinite alternate;
+}
+
+/* ===== PEZINHOS ===== */
+
+.robot-foot {
+  position: absolute;
+  bottom: -3px;
+  left: -5px;
+  width: 34px;
+  height: 16px;
+  border-radius: 12px;
+
+  background: linear-gradient(
+    145deg,
+    #fff0ff,
+    #d4a1f1,
+    #a16acb
+  );
+
+  box-shadow: inset 2px 2px 5px #ffffffaa;
+}
+
+/* ===== SOMBRA ===== */
+
+.robot-shadow {
+  position: absolute;
+  width: 125px;
+  height: 18px;
+  bottom: 32px;
+
+  background: #b879ec;
+  filter: blur(15px);
+  opacity: 0.4;
+  border-radius: 50%;
+}
+
+/* ===== BALÃO DE FALA ===== */
+
+.robot-speech {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+
+  min-width: 190px;
+  max-width: 240px;
+  padding: 10px 14px;
+  border-radius: 18px;
+
+  background: linear-gradient(145deg, #fff5ff, #ead5ff);
+  color: #70408f;
+  border: 2px solid #ffffff;
+
+  box-shadow:
+    0 4px 12px #9f6bc755,
+    0 0 12px #e8c4ff;
+
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+
+  z-index: 10;
+}
+
+/* ===== BOTÕES ===== */
+
+.robot-buttons {
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  z-index: 20;
+  white-space: nowrap;
+}
+
+.robot-buttons button {
+  border: 1px solid #e5c5ff;
+  border-radius: 20px;
+  padding: 8px 12px;
+
+  background: linear-gradient(145deg, #fff5ff, #e8d2ff);
+  color: #70408f;
+
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+
+  box-shadow: 0 3px 10px #a56bd455;
+}
+
+.robot-buttons button:hover {
+  filter: brightness(1.08);
+  transform: translateY(-2px);
+}
+
+/* ===== MODO SONINHO ===== */
+
+.robot.sleeping {
+  animation: sleepingFloat 3s ease-in-out infinite;
+}
+
+.robot.sleeping .robot-eyes span {
+  animation: none;
+  height: 3px;
+  border-radius: 50%;
+  transform: translateY(10px);
+}
+
+.robot.sleeping .robot-mouth {
+  width: 12px;
+  height: 6px;
+  border-bottom: 2px solid #ffaddd;
+}
+
+.robot.sleeping .robot-arm.right {
+  animation: none;
+  transform: rotate(45deg);
+}
+
+.robot.sleeping .robot-arm.left {
+  animation: none;
+  transform: rotate(-45deg);
+}
+
+.robot.sleeping .robot-leg {
+  animation: none;
+}
+
+.robot.sleeping .robot-core {
+  animation: corePulse 3s ease-in-out infinite;
+  opacity: 0.6;
+}
+
+.robot.sleeping + .robot-shadow {
+  opacity: 0.2;
+}
+
+/* ===== MODO FELIZ ===== */
+
+.robot.happy {
+  animation: happyJump 0.35s ease-in-out 4;
+}
+
+.robot.happy .robot-arm.right,
+.robot.happy .robot-arm.left {
+  animation: happyWave 0.25s ease-in-out infinite alternate;
+}
+
+.robot.happy .robot-core {
+  animation: corePulse 0.35s ease-in-out infinite;
+}
+
+/* ===== MODO DANÇA ===== */
+
+.robot.dancing {
+  animation: robotDance 0.45s ease-in-out infinite;
+}
+
+.robot.dancing .robot-arm.left {
+  animation: danceLeft 0.35s ease-in-out infinite alternate;
+}
+
+.robot.dancing .robot-arm.right {
+  animation: danceRight 0.35s ease-in-out infinite alternate;
+}
+
+.robot.dancing .robot-leg.left {
+  animation: danceLegLeft 0.35s ease-in-out infinite alternate;
+}
+
+.robot.dancing .robot-leg.right {
+  animation: danceLegRight 0.35s ease-in-out infinite alternate;
+}
+
+.robot.dancing .robot-core {
+  animation: corePulse 0.35s ease-in-out infinite;
+}
+
+
+/* ===== PAINEL DO ASSISTENTE ===== */
+
+.assistant-panel {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  width: 260px;
+  padding: 16px;
+  box-sizing: border-box;
+  background: linear-gradient(145deg, #211334, #382052);
+  border: 1px solid rgba(201, 160, 255, 0.5);
+  border-radius: 18px;
+  color: white;
+  font-family: "DM Sans", sans-serif;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  z-index: 9999;
+}
+
+.assistant-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.assistant-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.assistant-clock {
+  text-align: center;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.assistant-clock span {
+  display: block;
+  color: #d8baff;
+  font-size: 12px;
+}
+
+.assistant-clock strong {
+  display: block;
+  font-size: 30px;
+  margin: 5px 0;
+  color: #ffffff;
+}
+
+.assistant-clock p {
+  color: #e5d4ff;
+  font-size: 12px;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+
+/* ===== VISUAL MINIMALISTA ===== */
+
+/* Balão escondido por padrão */
+.robot-speech {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 8px);
+  transition: opacity 0.25s ease, transform 0.25s ease,
+              visibility 0.25s ease;
+  pointer-events: none;
+}
+
+/* Balão aparece somente quando ativado */
+.robot-speech.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* Botões mais discretos */
+.robot-buttons {
+  gap: 6px;
+}
+
+
+/* ===== ATALHOS DO ASSISTENTE ===== */
+
+.assistant-shortcuts {
+  margin-top: 16px;
+}
+
+.assistant-shortcuts h4 {
+  margin: 0 0 10px;
+  color: #e8d4ff;
+  font-size: 13px;
+}
+
+.shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.shortcut-grid button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 65px;
+  padding: 8px 4px;
+  border: 1px solid rgba(220, 190, 255, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+  font-size: 10px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+
+/* ===== ABAS DO ASSISTENTE ===== */
+
+.assistant-tabs {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(220, 190, 255, 0.15);
+}
+
+.assistant-tabs button {
+  flex: 1;
+  padding: 9px 5px;
+  border: 1px solid rgba(220, 190, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8d4ff;
+  font-size: 11px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.assistant-tabs button.active {
+  background: rgba(166, 107, 232, 0.3);
+  border-color: #bd8be8;
+  color: white;
+}
+
+.task-counter {
+  margin-left: 5px;
+  padding: 2px 5px;
+  border-radius: 20px;
+  background: #a66be8;
+  color: white;
+}
+
+/* ===== LISTA DE TAREFAS ===== */
+
+.assistant-tasks {
+  margin-top: 12px;
+}
+
+.tasks-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.tasks-summary div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 9px;
+  border: 1px solid rgba(220, 190, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.tasks-summary strong {
+  color: #e8d4ff;
+  font-size: 19px;
+}
+
+.tasks-summary span {
+  color: #c8b6d8;
+  font-size: 10px;
+}
+
+.task-form {
+  display: flex;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.task-form input {
+  min-width: 0;
+  flex: 1;
+  padding: 10px;
+  border: 1px solid rgba(220, 190, 255, 0.25);
+  border-radius: 9px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-size: 11px;
+}
+
+.task-form input::placeholder {
+  color: #bbaacb;
+}
+
+.task-form input:focus {
+  border-color: #bd8be8;
+}
+
+.task-form button {
+  width: 36px;
+  border: none;
+  border-radius: 9px;
+  background: #9560c9;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  max-height: 130px;
+  overflow-y: auto;
+  padding-right: 3px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  padding: 9px;
+  border: 1px solid rgba(220, 190, 255, 0.13);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.task-item label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  color: white;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.task-item label span {
+  overflow-wrap: anywhere;
+}
+
+.task-item input {
+  accent-color: #b47aff;
+  cursor: pointer;
+}
+
+.task-item.completed label span {
+  color: #a99ab5;
+  text-decoration: line-through;
+}
+
+.delete-task {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #d7b8ed;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.delete-task:hover {
+  color: #ff8baf;
+}
+
+.empty-tasks {
+  padding: 12px 5px;
+  color: #c8b6d8;
+  font-size: 11px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.tasks-footer {
+  margin: 10px 0 0;
+  color: #bbaacb;
+  font-size: 9px;
+  text-align: center;
+}
+
+
+.shortcut-grid button span {
+  font-size: 20px;
+}
+
+.shortcut-grid button:hover {
+  background: rgba(166, 107, 232, 0.35);
+  border-color: #bd8be8;
+  transform: translateY(-2px);
+}
+
+
+.robot-buttons button {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(220, 190, 255, 0.35);
+  background: rgba(43, 24, 65, 0.88);
+  color: #f4e7ff;
+  font-size: 16px;
+  box-shadow: 0 3px 12px rgba(20, 8, 35, 0.2);
+  transition: 0.2s ease;
+}
+
+.robot-buttons button:hover {
+  background: #8c59c5;
+  transform: translateY(-3px);
+}
+
+/* Painel mais refinado */
+.assistant-panel {
+  padding: 14px;
+  background: rgba(32, 19, 48, 0.96);
+  border: 1px solid rgba(210, 170, 255, 0.25);
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+}
+
+/* Esconde o painel sem interação */
+
+
+.assistant-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: #d8c4f5;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #72e6a0;
+  box-shadow: 0 0 8px #72e6a0;
+}
+
+.robot-assistant-button {
+  background: linear-gradient(135deg, #7544b8, #a66be8);
+  color: white;
+}
+
+
+/* ===== MODO ACENAR ===== */
+
+.robot.waving {
+  animation: robotFloat 2.4s ease-in-out infinite;
+}
+
+.robot.waving .robot-arm.right {
+  animation: robotWaveHand 0.35s ease-in-out infinite alternate;
+  transform-origin: top center;
+}
+
+.robot.waving .robot-arm.left {
+  animation: none;
+  transform: rotate(25deg);
+}
+
+.robot.waving .robot-hand {
+  animation: handWave 0.35s ease-in-out infinite alternate;
+}
+
+.robot.waving .robot-core {
+  animation: corePulse 0.6s ease-in-out infinite;
+}
+
+/* ===== ANIMAÇÕES ===== */
+
+@keyframes robotFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes sleepingFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(5px) rotate(-2deg);
+  }
+}
+
+@keyframes happyJump {
+  0%, 100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-28px) rotate(5deg);
+  }
+}
+
+@keyframes happyWave {
+  from {
+    transform: rotate(-55deg);
+  }
+
+  to {
+    transform: rotate(55deg);
+  }
+}
+
+@keyframes robotDance {
+  0%, 100% {
+    transform: translateY(0) rotate(-8deg);
+  }
+
+  50% {
+    transform: translateY(-12px) rotate(8deg);
+  }
+}
+
+@keyframes danceLeft {
+  from {
+    transform: rotate(-65deg);
+  }
+
+  to {
+    transform: rotate(55deg);
+  }
+}
+
+@keyframes danceRight {
+  from {
+    transform: rotate(65deg);
+  }
+
+  to {
+    transform: rotate(-55deg);
+  }
+}
+
+@keyframes danceLegLeft {
+  from {
+    transform: rotate(-18deg);
+  }
+
+  to {
+    transform: rotate(18deg);
+  }
+}
+
+@keyframes danceLegRight {
+  from {
+    transform: rotate(18deg);
+  }
+
+  to {
+    transform: rotate(-18deg);
+  }
+}
+
+@keyframes robotWaveHand {
+  from {
+    transform: rotate(-35deg);
+  }
+
+  to {
+    transform: rotate(-145deg);
+  }
+}
+
+@keyframes handWave {
+  from {
+    transform: rotate(-10deg);
+  }
+
+  to {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes blink {
+  0%, 45%, 50%, 100% {
+    transform: scaleY(1);
+  }
+
+  47%, 48% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(-35deg);
+  }
+
+  50% {
+    transform: rotate(-75deg);
+  }
+}
+
+@keyframes walkLeft {
+  from {
+    transform: rotate(-12deg);
+  }
+
+  to {
+    transform: rotate(12deg);
+  }
+}
+
+@keyframes walkRight {
+  from {
+    transform: rotate(12deg);
+  }
+
+  to {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes corePulse {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+@keyframes antennaGlow {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
